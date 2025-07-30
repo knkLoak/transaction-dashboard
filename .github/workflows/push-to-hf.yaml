@@ -1,0 +1,19 @@
+name: Sync to Hugging Face
+
+on:
+  push:
+    branches: [main]  # change if your main branch is named differently
+
+jobs:
+  push-to-hf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Push to Hugging Face Space
+        uses: huggingface/hub-action@v1
+        with:
+          repo-type: space
+          space-id: knkLoak/transaction-dashboard
+          hf_token: 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
