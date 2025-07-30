@@ -2,20 +2,28 @@ name: Sync to Hugging Face Space
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [main]  # Change this if your default branch is different
+  workflow_dispatch:  # Allows manual triggering in GitHub UI
 
 jobs:
   sync-to-hf:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          lfs: true
+          lfs: true  # Enable if you use Git LFS, otherwise safe to leave
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "krnkminh@gmail.com"
+          git config --global user.name "knkLoak"
+
       - name: Push to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add huggingface https://${HF_TOKEN}@huggingface.co/spaces/knkLoak/transaction-dashboard
+          git remote add huggingface https://user:${HF_TOKEN}@huggingface.co/spaces/knkLoak/transaction-dashboard
           git push huggingface main --force
