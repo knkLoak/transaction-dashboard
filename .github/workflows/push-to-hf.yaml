@@ -25,5 +25,6 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add huggingface https://user:${HF_TOKEN}@huggingface.co/spaces/knkLoak/transaction-dashboard
-          git push huggingface main --force
+          chmod +x .scripts/push-to-hf.sh
+          .scripts/push-to-hf.sh
+
