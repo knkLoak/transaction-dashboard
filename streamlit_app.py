@@ -20,7 +20,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Customer Spend Dashboard", layout="wide")
 
-st.title("💳 Capital One-style Transaction Dashboard")
+st.title("Transaction Dashboard")
 
 # Load sample data
 @st.cache_data
