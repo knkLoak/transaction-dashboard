@@ -26,7 +26,7 @@ st.title("Transaction Dashboard")
 @st.cache_data
 def load_data():
     try:
-        url = "https://minh-analytics-projects.s3.amazonaws.com/transactions_data/synthetic_transactions.csv"
+        url = "https://minh-analytics-projects.s3.amazonaws.com/transactions_data/Synthetic_Transactions_Data.csv"
         return pd.read_csv(url, parse_dates=["timestamp"])
     except Exception as e:
         st.error(f"Failed to load data from S3: {e}")
