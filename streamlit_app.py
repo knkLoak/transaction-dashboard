@@ -37,9 +37,23 @@ df = load_data()
 
 # Overview
 st.subheader("Transaction Summary")
-st.metric("Total Transactions", f"{len(df):,}")
-st.metric("Total Spend", f"${df['amount'].sum():,.2f}")
-st.metric("Unique Customers", df['customer_id'].nunique())
+col1, col2, col3 = st.columns(3)
+col1.metric("Total Transactions", f"{len(df):,}")
+col2.metric("Total Spend", f"${df['amount'].sum():,.2f}")
+col3.metric("Unique Customers", df['customer_id'].nunique())
+
+# Interactve filter
+st.sidebar.header("Filters")
+selected_category = st.sidebar.multiselect("Category", df["category"].unique())
+selected_customer = st.sidebar.multiselect("Customer ID", df["customer_id"].unique().astype(str))
+
+filtered_df = df.copy()
+if selected_category:
+    filtered_df = filtered_df[filtered_df["category"].isin(selected_category)]
+if selected_customer:
+    filtered_df = filtered_df[filtered_df["customer_id"].astype(str).isin(selected_customer)]
+
+df = filtered_df  # update global df for the rest of the app
 
 # Category spend
 st.subheader("🧾 Spend by Category")
